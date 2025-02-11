@@ -26,4 +26,28 @@ function todoList() {
   } else {
     alert("내용을 입력해주세요...");
   }
+  todoAdd.val("");
+
+  delBtn.click(function () {
+    li.remove();
+  });
+  let checkChange = true;
+  if (checkChange === true) {
+    chgBtn.click(function () {
+      checkChange = false;
+      span.css("display", "none");
+      let todoChange = $("<input type='text'>").attr("id", "changeSpan");
+      li.append(todoChange);
+      if (checkChange === false) {
+        chgBtn.click(function () {
+          checkChange = true;
+          if (todoChange.val()) {
+            span.text(todoChange.val());
+            span.css("display", "inline-block");
+            todoChange.remove();
+          }
+        });
+      }
+    });
+  }
 }
