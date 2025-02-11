@@ -5,31 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>투두리스트</title>
     <link rel="stylesheet" href="style.css" />
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
   </head>
   <body>
     <div class="main_box">
       <h1>TODOLIST</h1>
       <div class="main_in">
-        <ul>
-          <li>안녕</li>
-          <li>안녕</li>
-          <li>안녕</li>
-          <li>안녕</li>
-          <li>안녕</li>
-          <li>안녕</li>
-          <li>안녕</li>
-          <li>안녕</li>
-          <li>안녕</li>
-          <li>안녕</li>
-          <li>안녕</li>
-          <li>안녕</li>
-          <li>안녕</li>
-          <li>안녕</li>
-          <li>안녕</li>
-          <li>안녕</li>
-          <li>안녕</li>
-          <li>안녕</li>
-        </ul>
+        <div class="send">
+          <input type="text" placeholder="할 일 추가" id="todoAdd" />
+          <span id="addBtn" onclick="todoList()">+</span>
+        </div>
+        <ul id="todo_list"></ul>
       </div>
     </div>
     <script src="main.js"></script>
