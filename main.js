@@ -47,42 +47,60 @@ function todoList() {
 
 function makeTodo() {
   todos.forEach((item) => {
-    $(`#${item.id} #check`).click(() => {
-      $(`#${item.id} span`).toggleClass("finsh");
-      item.checked = $(`#${item.id} #check`).is(":checked");
-      console.log(todos);
-    });
+    // 수정 버튼에 대한 클릭 이벤트를 이벤트 위임을 통해 처리
+    $(`#${item.id} #change`)
+      .off("click")
+      .on("click", function () {
+        const todoLi = $(this).closest("li");
+        const todoSpan = todoLi.find("span");
+        const todoChangeInput = todoLi.find("#changeSpan");
 
-    $(`#${item.id} #del`).click(() => {
-      const index = todos.findIndex((t) => t.id === item.id);
-      if (index !== -1) {
-        todos.splice(index, 1);
-      }
-      $(`#${item.id}`).remove();
-      console.log(todos);
-    });
+        if (!item.checkChange) {
+          item.checkChange = true;
+          todoSpan.css("display", "none");
 
-    // 수정
-    $(`#${item.id} #change`).click(() => {
-      if (!item.checkChange) {
-        item.checkChange = true;
-        $(`#${item.id} span`).css("display", "none");
-        let todoChange = $("<input type='text'>").attr("id", "changeSpan");
-        todoChange.val($(`#${item.id} span`).text());
-        $(`#${item.id}`).append(todoChange);
-      } else {
-        let todoChange = $(`#${item.id} #changeSpan`);
-        if (todoChange.val()) {
-          item.checkChange = false;
-          $(`#${item.id} span`).text(todoChange.val());
-          $(`#${item.id} span`).css("display", "inline-block");
-          item.content = todoChange.val();
-          todoChange.remove();
+          // 기존 input이 있는지 확인하고, 없다면 새로 생성
+          if (todoChangeInput.length === 0) {
+            const todoChange = $("<input type='text'>").attr(
+              "id",
+              "changeSpan"
+            );
+            todoChange.val(todoSpan.text());
+            todoLi.append(todoChange);
+          }
         } else {
-          alert("내용을 적어주세요...");
+          if (todoChangeInput.val()) {
+            item.checkChange = false;
+            todoSpan.text(todoChangeInput.val());
+            todoSpan.css("display", "inline-block");
+            item.content = todoChangeInput.val();
+            todoChangeInput.remove();
+          } else {
+            alert("내용을 적어주세요...");
+          }
         }
-      }
-      console.log(todos);
-    });
+        console.log(todos);
+      });
+
+    // 체크박스 클릭
+    $(`#${item.id} #check`)
+      .off("click")
+      .on("click", () => {
+        $(`#${item.id} span`).toggleClass("finsh");
+        item.checked = $(`#${item.id} #check`).is(":checked");
+        console.log(todos);
+      });
+
+    // 삭제 클릭
+    $(`#${item.id} #del`)
+      .off("click")
+      .on("click", () => {
+        const index = todos.findIndex((t) => t.id === item.id);
+        if (index !== -1) {
+          todos.splice(index, 1);
+        }
+        $(`#${item.id}`).remove();
+        console.log(todos);
+      });
   });
 }
