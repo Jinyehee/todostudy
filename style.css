@@ -68,8 +68,6 @@ h1 {
 }
 #check {
   margin: 0;
-  top: 2px;
-  position: relative;
 }
 .send {
   margin: 0 auto;
@@ -106,5 +104,18 @@ h1 {
 }
 
 #changeSpan {
-  border: 1px solid gray;
+  margin-left: 10px;
+  background-color: #f9f9f9;
+  border: 2px solid #ddd;
+  transition: all 0.3s ease;
+  width: 250px;
+}
+#changeSpan:focus {
+  border-color: #4a90e2;
+  outline: none;
+  background-color: #fff;
+}
+.finsh {
+  text-decoration: line-through;
+  color: gray;
 }
