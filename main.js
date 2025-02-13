@@ -2,6 +2,68 @@
 // 2. Todo 객체 생성
 // 내용, 체크여부, id
 
+// 날짜
+let time = $("#time");
+let day = $("#day");
+setTimeout(() => {
+  timer();
+  thisDay();
+});
+setInterval(() => {
+  timer();
+}, 1000);
+
+function timer() {
+  let today = new Date();
+  let hours = today.getHours();
+  let minutes = today.getMinutes();
+  let seconds = today.getSeconds();
+  time.text(
+    `${hours < 10 ? `0${hours}` : hours} : ${
+      minutes < 10 ? `0${minutes}` : minutes
+    } : ${seconds < 10 ? `0${seconds}` : seconds}`
+  );
+}
+
+function thisDay() {
+  let today = new Date();
+  let year = today.getFullYear();
+  let month = today.getMonth();
+  let date = today.getDate();
+  day.text(
+    `${year} / ${month + 1 < 10 ? `0${month + 1}` : month + 1} / ${
+      date < 10 ? `0${date}` : date
+    }`
+  );
+}
+
+const api_key = "91bdbdffc330fa9fd5e5f1cf3e376ed4";
+const setWeather = $("#weather");
+navigator.geolocation.getCurrentPosition(function (position) {
+  let lat = position.coords.latitude;
+  let lon = position.coords.longitude;
+
+  getWeather(lat, lon);
+});
+
+function getWeather(lat, lon) {
+  fetch(
+    `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${api_key}&units=metric&lang=kr`
+  )
+    .then((response) => response.json())
+    .then((data) => {
+      const icon = data.weather[0].icon;
+      const iconURL = `http://openweathermap.org/img/wn/${icon}@2x.png`;
+      const temperature = Math.floor(data.main.temp);
+      const description = data.weather[0].description;
+      $("#icon").attr("src", iconURL);
+      setWeather.text(`${description} (${temperature}°C)`);
+    })
+    .catch((error) => {
+      alert(error);
+    });
+}
+
 const todos = [];
 let i = 0;
 const todoAdd = $("#todoAdd");
@@ -51,9 +113,8 @@ function makeTodo() {
     const todoSpan = $(`#${item.id} span`);
     // 수정 버튼에 대한 클릭 이벤트를 이벤트 위임을 통해 처리
     $(`#${item.id} #change`)
-      .click(() => {})
       .off("click")
-      .on("click", function () {
+      .on("click", () => {
         if (!item.checkChange) {
           item.checkChange = true;
           todoSpan.css("display", "none");
@@ -76,20 +137,24 @@ function makeTodo() {
       });
 
     // 체크박스
-    $(`#${item.id} #check`).click(() => {
-      todoSpan.toggleClass("finsh");
-      item.checked = $(`#${item.id} #check`).is(":checked");
-      console.log(todos);
-    });
+    $(`#${item.id} #check`)
+      .off("click")
+      .on("click", () => {
+        todoSpan.toggleClass("finsh");
+        item.checked = $(`#${item.id} #check`).is(":checked");
+        console.log(todos);
+      });
 
     // 삭제
-    $(`#${item.id} #del`).click(() => {
-      const index = todos.findIndex((t) => t.id === item.id);
-      if (index !== -1) {
-        todos.splice(index, 1);
-      }
-      $(`#${item.id}`).remove();
-      console.log(todos);
-    });
+    $(`#${item.id} #del`)
+      .off("click")
+      .on("click", () => {
+        const index = todos.findIndex((t) => t.id === item.id);
+        if (index !== -1) {
+          todos.splice(index, 1);
+        }
+        $(`#${item.id}`).remove();
+        console.log(todos);
+      });
   });
 }
