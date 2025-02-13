@@ -4,7 +4,6 @@
 
 const todos = [];
 let i = 0;
-let checkChange = false;
 const todoAdd = $("#todoAdd");
 const todoUl = $("#todo_list");
 function todoList() {
@@ -34,6 +33,7 @@ function todoList() {
       content: span.text(),
       checked: check.is(":checked"),
       id: i,
+      checkChange: false,
     };
     todos.push(todo);
     console.log(todos);
@@ -46,13 +46,43 @@ function todoList() {
 }
 
 function makeTodo() {
-  todos.map((item) => {
+  todos.forEach((item) => {
+    const todoLi = $(`#${item.id}`);
+    const todoSpan = $(`#${item.id} span`);
+    // 수정 버튼에 대한 클릭 이벤트를 이벤트 위임을 통해 처리
+    $(`#${item.id} #change`)
+      .click(() => {})
+      .off("click")
+      .on("click", function () {
+        if (!item.checkChange) {
+          item.checkChange = true;
+          todoSpan.css("display", "none");
+          const todoChange = $("<input type='text'>").attr("id", "changeSpan");
+          todoChange.val(todoSpan.text());
+          todoLi.append(todoChange);
+        } else {
+          const todoChange = $(`#${item.id} #changeSpan`);
+          if (todoChange.val()) {
+            item.checkChange = false;
+            todoSpan.text(todoChange.val());
+            todoSpan.css("display", "inline-block");
+            item.content = todoChange.val();
+            todoChange.remove();
+          } else {
+            alert("내용을 적어주세요...");
+          }
+        }
+        console.log(todos);
+      });
+
+    // 체크박스
     $(`#${item.id} #check`).click(() => {
-      $(`#${item.id} span`).toggleClass("finsh");
+      todoSpan.toggleClass("finsh");
       item.checked = $(`#${item.id} #check`).is(":checked");
       console.log(todos);
     });
 
+    // 삭제
     $(`#${item.id} #del`).click(() => {
       const index = todos.findIndex((t) => t.id === item.id);
       if (index !== -1) {
@@ -63,23 +93,3 @@ function makeTodo() {
     });
   });
 }
-
-// chgBtn.click(function () {
-//   if (!checkChange) {
-//     checkChange = true;
-//     span.css("display", "none");
-//     let todoChange = $("<input type='text'>").attr("id", "changeSpan");
-//     todoChange.val(span.text());
-//     li.append(todoChange);
-//   } else {
-//     let todoChange = $("#changeSpan");
-//     if (todoChange.val()) {
-//       checkChange = false;
-//       span.text(todoChange.val());
-//       span.css("display", "inline-block");
-//       todoChange.remove();
-//     } else {
-//       alert("내용을 적어주세요...");
-//     }
-//   }
-// });
