@@ -74,7 +74,6 @@ function getWeather(lat, lon) {
 
 // 투두 추가
 const todos = [];
-
 const todoAdd = $("#todoAdd");
 const todoUl = $("#todo_list");
 
@@ -214,3 +213,4 @@ function makeTodo() {
 function saveItem() {
   localStorage.setItem("list", JSON.stringify(todos));
 }
+
