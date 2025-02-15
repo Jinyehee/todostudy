@@ -115,7 +115,7 @@ if (saveTodoList) {
     makeTodo();
   }
 }
-let i = todos.length;
+let i = localStorage.getItem("iLength") || 0;
 function todoList() {
   if (todoAdd.val()) {
     let li = $("<li></li>").attr("id", i);
@@ -211,5 +211,6 @@ function makeTodo() {
 
 // 로컬 스토리지
 function saveItem() {
+  localStorage.setItem("iLength", i)
   localStorage.setItem("list", JSON.stringify(todos));
 }
