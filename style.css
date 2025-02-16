@@ -23,7 +23,8 @@ body {
 }
 
 .main_box {
-  width: 500px;
+  width: 90%;
+  max-width: 500px;
   margin: 30px auto;
   padding: 20px;
   background-color: #ffffff;
@@ -38,37 +39,40 @@ body {
   padding: 0px 30px;
   color: gray;
 }
-#day {
-  margin-left: -25px;
-}
+
+
 #icon {
   width: 25px;
   background-size: cover;
   position: absolute;
 }
+
 #weather {
   margin-left: 30px;
 }
 
 h1 {
   text-align: center;
-  color: #4a90e2;
+  color: #94c5ff;
   font-weight: bold;
   font-size: 30px;
   border-bottom: 1px solid gray;
   padding: 20px 0px;
   margin: 0 30px;
 }
+
 .main_in li {
   list-style: none;
   border-bottom: 1px solid #6764645c;
   margin: 5px 0px;
   padding: 10px 0px;
 }
+
 .main_in ul {
   padding-right: 40px;
   margin: 30px 0;
 }
+
 .main_in {
   margin-top: 20px;
 }
@@ -105,12 +109,17 @@ h1 {
   margin-left: 10px;
   font-family: "BMJUA";
 }
+
 #check {
   margin: 0;
+  top: 1.5px;
+  position: relative;
 }
+
 .send {
   margin: 0 auto;
-  width: 300px;
+  width: 80%;
+  max-width: 300px;
   text-align: center;
 }
 
@@ -123,6 +132,7 @@ h1 {
   color: #777;
   transition: all 0.3s ease;
   margin-right: 10px;
+  width: 70%;
 }
 
 #todoAdd:focus {
@@ -147,14 +157,51 @@ h1 {
   background-color: #f9f9f9;
   border: 2px solid #ddd;
   transition: all 0.3s ease;
-  width: 250px;
 }
+
 #changeSpan:focus {
   border-color: #4a90e2;
   outline: none;
   background-color: #fff;
 }
+
 .finsh {
   text-decoration: line-through;
   color: gray;
+}
+
+@media (max-width: 768px) {
+
+  .date_box {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .main_in ul {
+    padding-right: 20px;
+  }
+
+  #todo_list {
+    padding-left: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  h1 {
+    font-size: 20px;
+  }
+  #changeSpan{
+    width: 100px;
+  }
+  .main_box {
+    padding: 15px;
+  }
+
+  #todo_list li {
+    padding: 8px 0;
+  }
+
+  .date_box {
+    padding: 10px;
+  }
 }
