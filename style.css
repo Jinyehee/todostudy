@@ -79,7 +79,7 @@ h1 {
 #todo_list button {
   width: 40px;
   height: 27px;
-  font-size: 14px;
+  font-size: 11px;
   background-color: #202020;
   color: white;
   border: none;
@@ -181,9 +181,6 @@ h1 {
 
   #todo_list {
     padding-left: 10px;
-  }
-  #todo_list button {
-    font-size: 11px;
   }
 }
 
