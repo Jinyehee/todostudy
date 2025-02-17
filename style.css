@@ -40,7 +40,6 @@ body {
   color: gray;
 }
 
-
 #icon {
   width: 25px;
   background-size: cover;
@@ -171,7 +170,6 @@ h1 {
 }
 
 @media (max-width: 768px) {
-
   .date_box {
     flex-direction: column;
     text-align: center;
@@ -184,13 +182,16 @@ h1 {
   #todo_list {
     padding-left: 10px;
   }
+  #todo_list button {
+    font-size: 11px;
+  }
 }
 
 @media (max-width: 480px) {
   h1 {
     font-size: 20px;
   }
-  #changeSpan{
+  #changeSpan {
     width: 100px;
   }
   .main_box {

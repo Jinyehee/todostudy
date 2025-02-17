@@ -211,6 +211,6 @@ function makeTodo() {
 
 // 로컬 스토리지
 function saveItem() {
-  localStorage.setItem("iLength", i)
+  localStorage.setItem("iLength", i);
   localStorage.setItem("list", JSON.stringify(todos));
 }
